@@ -1,7 +1,6 @@
-import { Link } from "expo-router";
 import { Text, View } from "react-native";
 
-export default function Index() {
+export default function AuthPage() {
   return (
     <View
       style={{
@@ -10,8 +9,13 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Hello world</Text>
-      <Link href="/(auth)">Go to Auth</Link>
+    <Text>Auth Page</Text>
+
+
+    <Text>
+        This is the auth page. You can login or SignUp here.
+    </Text>
+
     </View>
   );
 }
