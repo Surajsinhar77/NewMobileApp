@@ -11,7 +11,7 @@ export default function Index() {
       }}
     >
       <Text>Hello world</Text>
-      <Link href="/(auth)">Go to Auth</Link>
+      {/* <Link href="/(auth)">Go to auth</Link> */}
     </View>
   );
 }
