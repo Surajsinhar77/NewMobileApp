@@ -1,17 +1,9 @@
-import { Link } from "expo-router";
-import { Text, View } from "react-native";
+import React from 'react';
+import StackNavigationMain from "@/src/Nagivate/StackNavigation"
+import { View, SafeAreaView, Text } from 'react-native';
 
-export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Hello world</Text>
-      {/* <Link href="/(auth)">Go to auth</Link> */}
-    </View>
-  );
+export default function index() {
+    return (
+        <StackNavigationMain/>
+    );
 }
