@@ -3,7 +3,7 @@ import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import { useState, useRef } from 'react';
 import { Button, StyleSheet, Text, TouchableOpacity, View , Alert} from 'react-native';
-import { Camera } from 'lucide-react-native'
+import { Camera , SwitchCamera} from 'lucide-react-native'
 
 
 export default function CameraUi() {
@@ -39,12 +39,13 @@ export default function CameraUi() {
         const photo = await cameraRef.current.takePictureAsync();
 
         // Create directory if it doesn't exist
-        const directoryUri = `${FileSystem.documentDirectory}Selfies/`;
-        await FileSystem.makeDirectoryAsync(directoryUri, { intermediates: true });
-
         // Generate unique filename
         const filename = `selfie_${Date.now()}.jpg`;
-        const savedUri = `${directoryUri}${filename}`;
+        const savedUri = `${FileSystem.cacheDirectory}${filename}`;
+
+        // Save to media library
+        const asset = await MediaLibrary.createAssetAsync(photo?.uri || '');
+        await MediaLibrary.createAlbumAsync("AppSelfies", asset, false);
 
         // Copy captured image to app's document directory
         await FileSystem.copyAsync({
@@ -53,7 +54,7 @@ export default function CameraUi() {
         });
 
         // Alert with saved location
-        Alert.alert('Image Saved', `Saved to: ${savedUri}`);
+        Alert.alert('Image Saved', `Saved to: Gallery/${filename}`);
 
         // Set captured image for preview
         setCapturedImage(savedUri);
@@ -75,15 +76,15 @@ export default function CameraUi() {
 
   return (
     <View style={styles.container}>
-      <CameraView style={styles.camera} facing={facing}>
+      <CameraView style={styles.camera} facing={facing} ref={cameraRef}>
         {/* <View style={styles.buttonContainer}> */}
           <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Camera size={40} color='red' style={styles.cameraFlip} />
+            <SwitchCamera size={40} color='black' style={styles.cameraFlip} />
           </TouchableOpacity>
         {/* </View> */}
         <View style={styles.baseButtonHolder}>
             <TouchableOpacity style={styles.captureButton} onPress={CaptureImage}>
-                <Camera size={40} color='green' style={{margin: 'auto'}} />
+                {/* <Camera size={40} color='blue' style={{margin: 'auto'}} /> */}
             </TouchableOpacity>
         </View>
       </CameraView>
@@ -115,12 +116,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'flex-end',
     alignItems: 'center',
+    top : 0,
+    right: 20, 
   },
   cameraFlip:{
     top: 20,
     left: 0,
-    borderColor: 'red',
-    borderWidth: 1,
+    borderColor: 'blue',
+    // borderWidth: 1,
+    fontWeight: '100',
     // backgroundColor: 'red', 
   },
   baseButtonHolder:{
@@ -132,13 +136,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: '100%',
     backgroundColor: 'transparent',
+    borderColor: 'blue',
   },
   captureButton :{
     width: 60,
     height: 60,
     bottom: 20,
     borderRadius: 50,
-    borderColor: 'green',
+    // borderColor: 'green',
     borderWidth: 1,
     backgroundColor: 'red',
   },
