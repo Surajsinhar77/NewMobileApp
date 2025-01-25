@@ -1,35 +1,61 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Home from "../Screens/Home";
+import Login from "../Screens/Login";
+import TabsNavigation from "./TabsNavigation";
 import Detail from "../Screens/Details";
 import CamaraScreen from "@/components/NativeUI/CamaraUi";
-import MyTabs from "./Mytabs";
+
+// Define navigation types
+type RootStackParamList = {
+  Login: undefined;
+  Tabs: undefined;
+  Detail: { itemId?: string };
+  'camera-open': undefined;
+};
 
 const Stack = createStackNavigator();
 
 export default function StackNavigation() {
+  // Assume you have a authentication state management 
+  // This could be from context, Redux, or AsyncStorage
+  const isAuthenticated = true; // Replace with actual auth check
+
   return (
-    <Stack.Navigator initialRouteName="Tabs">
-      {/* Tabs as the main entry point */}
+    <Stack.Navigator 
+      initialRouteName={isAuthenticated ? "Tabs" : "Login"}
+    >
       <Stack.Screen
-        name="Tabs"
-        component={MyTabs}
-        options={{ headerShown: false }} // Hide header for tab navigation
+        name="Login"
+        component={Login}
+        options={{ headerShown: false }}
       />
-      <Stack.Screen name="Detail"  component={Detail} />
-      <Stack.Screen
-        name="camera-open"
-        component={CamaraScreen}
-        options={{
-          title: "",
-          headerTransparent: true,
-          headerStyle: {
-            backgroundColor: "transparent",
-            elevation: 0,
-            shadowOpacity: 0,
-          },
-          headerTintColor: "#fff",
-        }}
-      />
+      {isAuthenticated && (
+        <>
+          <Stack.Screen
+            name="Tabs"
+            component={TabsNavigation}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen 
+            name="Detail" 
+            component={Detail} 
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name="camera-open"
+            component={CamaraScreen}
+            options={{
+              title: "",
+              headerTransparent: true,
+              headerStyle: {
+                backgroundColor: "transparent",
+                elevation: 0,
+                shadowOpacity: 0,
+              },
+              headerTintColor: "#fff",
+            }}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 }
