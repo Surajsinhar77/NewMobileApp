@@ -1,27 +1,33 @@
 import { createStackNavigator } from "@react-navigation/stack";
-
-const Stack = createStackNavigator();
 import Home from "../Screens/Home";
 import Detail from "../Screens/Details";
 import CamaraScreen from "@/components/NativeUI/CamaraUi";
+import MyTabs from "./Mytabs";
+
+const Stack = createStackNavigator();
 
 export default function StackNavigation() {
   return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Detail" component={Detail} />
+    <Stack.Navigator initialRouteName="Tabs">
+      {/* Tabs as the main entry point */}
+      <Stack.Screen
+        name="Tabs"
+        component={MyTabs}
+        options={{ headerShown: false }} // Hide header for tab navigation
+      />
+      <Stack.Screen name="Detail"  component={Detail} />
       <Stack.Screen
         name="camera-open"
         component={CamaraScreen}
         options={{
           title: "",
-          headerTransparent: true, // Makes the header background transparent
+          headerTransparent: true,
           headerStyle: {
             backgroundColor: "transparent",
             elevation: 0,
             shadowOpacity: 0,
-          }, // Removes background, shadow
-          headerTintColor: "#fff", // Sets the color of the text in the header
+          },
+          headerTintColor: "#fff",
         }}
       />
     </Stack.Navigator>
