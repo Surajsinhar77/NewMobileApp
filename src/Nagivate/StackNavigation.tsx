@@ -4,19 +4,10 @@ import TabsNavigation from "./TabsNavigation";
 import Detail from "../Screens/Details";
 import CamaraScreen from "@/components/NativeUI/CamaraUi";
 
-// Define navigation types
-type RootStackParamList = {
-  Login: undefined;
-  Tabs: undefined;
-  Detail: { itemId?: string };
-  'camera-open': undefined;
-};
 
 const Stack = createStackNavigator();
 
 export default function StackNavigation() {
-  // Assume you have a authentication state management 
-  // This could be from context, Redux, or AsyncStorage
   const isAuthenticated = true; // Replace with actual auth check
 
   return (
@@ -32,6 +23,12 @@ export default function StackNavigation() {
         <>
           <Stack.Screen
             name="Tabs"
+            component={TabsNavigation}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="Home"
             component={TabsNavigation}
             options={{ headerShown: false }}
           />

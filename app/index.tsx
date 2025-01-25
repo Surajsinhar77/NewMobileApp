@@ -11,18 +11,9 @@ import EnterOtp from "@/components/Auth/EnterOtp";
 
 
 export default function index() {
-<<<<<<< HEAD
-  return (
-    // <NavigationContainer>
-      <StackNavigation />
-    // </NavigationContainer>r
-  );
-}
-=======
     return (
-        <StackNavigationMain/>
+        <StackNavigation/>
         // <LoginPage/>
         // <EnterOtp/>
     );
 }
->>>>>>> bfa0261 (done here with some update)
