@@ -3,11 +3,15 @@ import Login from "../Screens/Login";
 import TabsNavigation from "./TabsNavigation";
 import Detail from "../Screens/Details";
 import CamaraScreen from "@/components/NativeUI/CamaraUi";
+import { useSelector } from "react-redux";
 
 
 const Stack = createStackNavigator();
 
 export default function StackNavigation() {
+  // const {isAuthenticated} = useSelector((state : any) => state.auth) || true;
+  // console.log(isAuthenticated, "Check isAuthenticated 13" );
+
   const isAuthenticated = true; // Replace with actual auth check
 
   return (

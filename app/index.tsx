@@ -1,7 +1,8 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import StackNavigation from "@/src/Nagivate/StackNavigation";
-
+import { Provider } from "react-redux";
+import store from "@/src/store/store";
 
 
 //-----------------Screens----------------- testing 
@@ -12,7 +13,9 @@ import EnterOtp from "@/components/Auth/EnterOtp";
 
 export default function index() {
     return (
-        <StackNavigation/>
+        <Provider store={store}>
+        <StackNavigation />
+      </Provider>
         // <LoginPage/>
         // <EnterOtp/>
     );
