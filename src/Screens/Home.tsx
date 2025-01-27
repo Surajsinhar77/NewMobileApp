@@ -14,7 +14,7 @@ export default function Home(){
             {/* <Button title="Go to Detail" onPress={() => navigation.navigate('Detail')} /> */}
 
         {/* </View> */}
-        <Text style={styles.text} >Go to Detail tab to open camera</Text>
+        <Text style={styles.text} >Go to Detail tab to open camera    </Text>
 
         
         </View>
